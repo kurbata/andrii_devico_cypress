@@ -11,9 +11,6 @@ module.exports = defineConfig({
       openMode: 1,
     },
     setupNodeEvents(on, config) {
-
     },
   },
 });
-// implement node event listeners here
-//specPattern: "**/*.feature"

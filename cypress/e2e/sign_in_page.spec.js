@@ -2,8 +2,6 @@ const {sign_in_page} = require("../Selectors/sign_in_page");
 
 describe('UI tests for sign in page', () => {
 
-
-
     before('visiting sign in page', () => {
         cy.visit('/')
     })
@@ -49,5 +47,4 @@ describe('UI tests for sign in page', () => {
     it("should show Cypress copyright link that leads to 'https://www.cypress.io/'", () => {
         cy.get(sign_in_page.cypress_link).should('have.attr', 'href', 'https://cypress.io')
     })
-
 })
