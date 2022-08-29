@@ -8,5 +8,5 @@ export const bank_account_page = {
     bank_name_error: '#bankaccount-bankName-input-helper-text',
     routing_number_error: '#bankaccount-routingNumber-input-helper-text',
     account_number_error: '#bankaccount-accountNumber-input-helper-text',
-    log_out_button: '[data-test=sidenav-signout]'
+    logout_btn: '[data-test="sidenav-signout"]'
 }

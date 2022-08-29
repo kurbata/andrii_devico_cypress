@@ -39,8 +39,8 @@ describe('Verify transactions flow', () => {
 
     it("Should allow to search user, submits a transaction payment and verifies the deposit for the receiver",
         () => {
-            let startBalance;
-            let endBalance;
+            let startBalance
+            let endBalance
             cy.get(transaction_page.balance).should("be.visible").invoke("text")
                 .then((balance_value) => {
                     const dollarTrim = balance_value.slice(1)
@@ -66,7 +66,7 @@ describe('Verify transactions flow', () => {
                 .then((balance_value) => {
                     const dollarTrim = balance_value.slice(1)
                     const dotRemove =
-                        dollarTrim.length > 10 ? dollarTrim.replace(/,/, "") : dollarTrim;
+                        dollarTrim.length > 10 ? dollarTrim.replace(/,/, "") : dollarTrim
                     const stringToNumber = parseFloat(dotRemove)
                     startBalance = stringToNumber
                     return endBalance
@@ -96,5 +96,17 @@ describe('Verify transactions flow', () => {
         cy.wait('@users')
         cy.get(transaction_page.search).should('be.visible').click({force: true}).type('nata')
         cy.get(transaction_page.userList).should('be.visible').contains('nata nata')
+    })
+
+    it("displays transaction errors", () => {
+        cy.get(transaction_page.new_btn).should("be.visible").click()
+        cy.get(transaction_page.search).click({force: true}).type('1111')
+        cy.get(transaction_page.userList).click()
+        cy.get(transaction_page.pay_btn).should("be.disabled")
+        cy.get(transaction_page.request_btn).should("be.disabled")
+        cy.get(transaction_page.note_fld).click()
+        cy.get(transaction_page.amount_error).should("have.text","Please enter a valid amount")
+        cy.get(transaction_page.amount_fld).click()
+        cy.get(transaction_page.note_error).should("have.text", "Please enter a note")
     })
 })

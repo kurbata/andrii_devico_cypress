@@ -13,5 +13,9 @@ export const transaction_page = {
     accept_request_btn: '[data-test*="transaction-accept-request"]',
     return_btn: '[data-test="new-transaction-return-to-transactions"]',
     trnsct_popup: '[data-test="alert-bar-success"]',
-    balance: '[data-test="sidenav-user-balance"]'
+    balance: '[data-test="sidenav-user-balance"]',
+    notification_icon: '[data-test="nav-top-notifications-link"]',
+    like_btn: '[data-test*="transaction-like-button"]',
+    notifications_list: '[data-test*="notification-list"]',
+    trnsct_comment_input: '[data-test*="transaction-comment-input"]'
 }
