@@ -121,5 +121,9 @@ describe('UI tests for login, signup, and logout actions', () => {
         cy.logOut()
         cy.signIn()
         cy.logOut()
+        cy.api_signUp(userName, password)
+        cy.api_signIn(userName, password)
+        cy.api_logOut().wait("@logout")
+
     })
 })
