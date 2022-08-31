@@ -12,7 +12,7 @@ describe('Verify transactions flow', () => {
     })
 
     const commentText = 'thank you'
-    const phoneNumberB = '000000'
+    const phoneNumber = '666666'
 
     it("transactions navigation tabs should be hidden on a transaction view page",
         () => {
@@ -23,7 +23,7 @@ describe('Verify transactions flow', () => {
         })
 
     it("User should be able to like a transaction", () => {
-        cy.sendTransaction(phoneNumberB)
+        cy.sendTransaction(phoneNumber)
         cy.switchUser()
         cy.likeTransaction()
      } )
@@ -38,7 +38,7 @@ describe('Verify transactions flow', () => {
     })
 
     it("User should be able to accept a transaction request", () => {
-        cy.sendRequest(phoneNumberB)
+        cy.sendRequest(phoneNumber)
         cy.switchUser()
         cy.get(transaction_page.mine_btn).should('be.visible').click()
         cy.get(transaction_page.transaction_list).should('be.visible').first().click()
@@ -46,7 +46,7 @@ describe('Verify transactions flow', () => {
     })
 
     it("User should be able to reject a transaction request", () => {
-        cy.sendRequest(phoneNumberB)
+        cy.sendRequest(phoneNumber)
         cy.switchUser()
         cy.get(transaction_page.mine_btn).should('be.visible').click()
         cy.get(transaction_page.transaction_list).should('be.visible').first().click()
@@ -54,7 +54,7 @@ describe('Verify transactions flow', () => {
     })
 
     it("Accept/reject buttons shouldn't exist on completed request", () => {
-        cy.sendRequest(phoneNumberB)
+        cy.sendRequest(phoneNumber)
         cy.switchUser()
         cy.get(transaction_page.mine_btn).should('be.visible').click()
         cy.get(transaction_page.transaction_list).should('be.visible').first().click()
