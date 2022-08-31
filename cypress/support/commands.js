@@ -73,8 +73,24 @@ Cypress.Commands.add('sendTransaction', (phoneNumber) => {
     cy.get(transaction_page.request_btn).should("not.be.disabled").click()
     cy.get(transaction_page.return_btn).should("not.be.disabled").click()
 })
-Cypress.Commands.add('likeTransaction', (userName) => {
+
+Cypress.Commands.add("sendRequest", (phoneNumber)=> {
+    cy.get(transaction_page.new_btn).should('be.visible').click()
+    cy.get(transaction_page.search).should('be.visible').click({force: true}).type(phoneNumber)
+    cy.get(transaction_page.userList).should('be.visible').click()
+    cy.get(transaction_page.request_btn).should("be.disabled")
+    cy.get(transaction_page.amount_fld).should('be.visible').click().type('1000')
+    cy.get(transaction_page.note_fld).should('be.visible').click().type('test_payment')
+    cy.get(transaction_page.request_btn).should('be.visible').and('be.enabled').click()
+    cy.get(transaction_page.trnsct_popup).should("have.text", "Transaction Submitted!")
+    cy.get(transaction_page.return_btn).should('be.visible').click()
+})
+
+
+Cypress.Commands.add('likeTransaction', () => {
     cy.get(transaction_page.mine_btn).should('be.visible').click()
     cy.get(transaction_page.transaction_list).should('be.visible').click()
-    cy.get(transaction_page.like_btn).click()
+    cy.get(transaction_page.like_count).should('be.visible').and('have.text','0 ')
+    cy.get(transaction_page.like_btn).should('be.visible').and('exist').click()
+    cy.get(transaction_page.like_count).should('be.visible').and('have.text','1 ')
 })

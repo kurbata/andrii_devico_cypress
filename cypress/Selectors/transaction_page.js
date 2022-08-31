@@ -17,5 +17,9 @@ export const transaction_page = {
     notification_icon: '[data-test="nav-top-notifications-link"]',
     like_btn: '[data-test*="transaction-like-button"]',
     notifications_list: '[data-test*="notification-list"]',
-    trnsct_comment_input: '[data-test*="transaction-comment-input"]'
+    trnsct_comment_input: '[data-test*="transaction-comment-input"]',
+    trnsct_view_tabs: '[data-test="nav-transaction-tabs"]',
+    like_count: '[data-test*="transaction-like-count"]',
+    comment_list: '[data-test*="comment-list"]',
+    rjct_rqst: '[data-test*="transaction-reject-request"]'
 }
