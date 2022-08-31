@@ -22,4 +22,19 @@ export const funcs = {
         const lastName = 'testLast_' + uniqueId;
         return lastName;
     },
-};
+
+    userA() {
+        const userName = 'userA'
+        return userName
+    },
+
+    userB() {
+        const userName = 'userB'
+        return userName
+    },
+
+    userC() {
+        const userName = 'userC'
+        return userName
+    }
+}

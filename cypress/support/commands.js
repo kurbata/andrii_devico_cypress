@@ -1,6 +1,9 @@
 const {sign_in_page } = require("../Selectors/sign_in_page");
 const {sign_up_page} = require("../Selectors/sign_up_page");
 const {bank_account_page} = require("../Selectors/bank_account_page")
+const {rwa_page} = require("../Selectors/rwa_page");
+const {funcs} = require("../Helpers/functions");
+const {transaction_page} = require("../Selectors/transaction_page");
 
 Cypress.Commands.add("signUp", (firstName, lastName, userName, password) => {
     cy.visit("/signup")
@@ -25,7 +28,18 @@ Cypress.Commands.add('firstLogIn', (userName, password) => {
 Cypress.Commands.add('signIn', () => {
     cy.visit("/signin")
     cy.intercept('POST', '/signIn').as('signin');
-    cy.get(sign_in_page.input_user_name_field).type('test')
+    cy.get(sign_in_page.input_user_name_field).type('andrey_kv')
+    cy.get(sign_in_page.input_password_field).type('password')
+    cy.get(sign_in_page.sign_in_btn).click()
+})
+
+Cypress.Commands.add('switchUser', () =>{
+    cy.intercept('POST', '/logout').as('logout')
+    cy.get(bank_account_page.logout_btn).should('be.visible').click()
+    cy.get(sign_in_page.title_text).should('be.visible').and('have.text', 'Sign in')
+    cy.visit("/signin")
+    cy.intercept('POST', '/signIn').as('signin');
+    cy.get(sign_in_page.input_user_name_field).type('nata')
     cy.get(sign_in_page.input_password_field).type('password')
     cy.get(sign_in_page.sign_in_btn).click()
 })
@@ -41,8 +55,26 @@ Cypress.Commands.add('onBoarding', () =>{
     cy.get(bank_account_page.done_button).click()
 })
 
-Cypress.Commands.add('logOut', (logIn, password) => {
+Cypress.Commands.add('logOut', () => {
     cy.intercept('POST', '/logout').as('logout')
-    cy.get(bank_account_page.log_out_button).should('be.visible').click()
+    cy.get(bank_account_page.logout_btn).should('be.visible').click()
     cy.get(sign_in_page.title_text).should('be.visible').and('have.text', 'Sign in')
+})
+
+Cypress.Commands.add('sendTransaction', (phoneNumber) => {
+    cy.get(transaction_page.new_btn).should("be.visible").click()
+    cy.get(transaction_page.search).click({force:true}).type(phoneNumber)
+    cy.wait('@users')
+    cy.get(transaction_page.userList).should('contain.text', phoneNumber).click()
+    cy.get(transaction_page.pay_btn).should("be.disabled")
+    cy.get(transaction_page.request_btn).should("be.disabled")
+    cy.get(transaction_page.amount_fld).click().type("1000")
+    cy.get(transaction_page.note_fld).click().type('sale')
+    cy.get(transaction_page.request_btn).should("not.be.disabled").click()
+    cy.get(transaction_page.return_btn).should("not.be.disabled").click()
+})
+Cypress.Commands.add('likeTransaction', (userName) => {
+    cy.get(transaction_page.mine_btn).should('be.visible').click()
+    cy.get(transaction_page.transaction_list).should('be.visible').click()
+    cy.get(transaction_page.like_btn).click()
 })
