@@ -1,9 +1,30 @@
 const {sign_in_page } = require("../Selectors/sign_in_page");
 const {sign_up_page} = require("../Selectors/sign_up_page");
 const {bank_account_page} = require("../Selectors/bank_account_page")
-const {rwa_page} = require("../Selectors/rwa_page");
-const {funcs} = require("../Helpers/functions");
 const {transaction_page} = require("../Selectors/transaction_page");
+
+const APIurl = 'http://localhost:3001';
+
+Cypress.Commands.add('api_signIn', (userName, password) => {
+    cy.request('POST', `${APIurl}/login`, {
+        username: userName,
+        password: password,
+    });
+});
+
+Cypress.Commands.add('api_signUp', (userName, password) => {
+    cy.request('POST', `${APIurl}/users`, {
+        firstName: 'API',
+        lastName: 'User',
+        username: userName,
+        password: password,
+        confirmPassword: password,
+    });
+});
+
+Cypress.Commands.add('api_logOut', () => {
+    cy.request('POST', `${APIurl}/logout`);
+});
 
 Cypress.Commands.add("signUp", (firstName, lastName, userName, password) => {
     cy.visit("/signup")
@@ -42,6 +63,12 @@ Cypress.Commands.add('switchUser', () =>{
     cy.get(sign_in_page.input_user_name_field).type('nata')
     cy.get(sign_in_page.input_password_field).type('password')
     cy.get(sign_in_page.sign_in_btn).click()
+})
+
+Cypress.Commands.add('api_switchUser', (apiUser, password) =>{
+    cy.api_logOut()
+    cy.visit("/signin")
+    cy.api_signIn(apiUser, password)
 })
 
 Cypress.Commands.add('onBoarding', () =>{
