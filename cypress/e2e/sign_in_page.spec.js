@@ -47,4 +47,19 @@ describe('UI tests for sign in page', () => {
     it("should show Cypress copyright link that leads to 'https://www.cypress.io/'", () => {
         cy.get(sign_in_page.cypress_link).should('have.attr', 'href', 'https://cypress.io')
     })
+
+    it('should display login errors while logging with invalid credentials', () => {
+        cy.get(sign_in_page.input_user_name_field).type('testuser')
+        cy.get(sign_in_page.input_password_field).type('test')
+        cy.get(sign_in_page.sign_in_btn).click()
+        cy.get(sign_in_page.sign_in_error).should('be.visible').and('have.text', 'Username or password is invalid')
+    })
+
+    it('should show an error if the entered password is less than 4 characters', () => {
+        cy.get(sign_in_page.input_user_name_field).type('andrey')
+        cy.get(sign_in_page.input_password_field).type('abc').blur()
+        cy.get(sign_in_page.password_error).should('be.visible').and('have.text', 'Password must contain at least 4 characters')
+        cy.get(sign_in_page.input_password_field).type('qwerty').blur()
+        cy.get(sign_in_page.password_error).should('not.exist')
+    })
 })

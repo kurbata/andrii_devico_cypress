@@ -9,5 +9,7 @@ export const sign_in_page = {
     remember_me_checkbox: '[type="checkbox"]',
     sign_in_btn: '[data-test="signin-submit"]',
     sign_up_link: '[data-test="signup"]',
-    cypress_link: '[target="_blank"]'
+    cypress_link: '[target="_blank"]',
+    sign_in_error: '[data-test="signin-error"]',
+    password_error: '#password-helper-text'
 }
